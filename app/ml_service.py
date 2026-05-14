@@ -27,12 +27,15 @@ def classify_text(text: str):
         logger.error(f"Ошибка при работе модели: {e}")
         raise
 
-    label = prediction.get("label", "").upper()
+    label = str(prediction.get("label", "")).upper()
     score = float(prediction.get("score", 0.0))
 
-    if label in ("LABEL_1", "SPAM", "1"):
+    spam_labels = ("LABEL_1", "SPAM", "1", "TOXIC", "INAPPROPRIATE")
+    ham_labels = ("LABEL_0", "HAM", "NOT_SPAM", "0", "NORMAL", "NEUTRAL")
+
+    if label in spam_labels:
         result = "SPAM"
-    elif label in ("LABEL_0", "HAM", "NOT_SPAM", "0"):
+    elif label in ham_labels:
         result = "NOT_SPAM"
     else:
         result = label
