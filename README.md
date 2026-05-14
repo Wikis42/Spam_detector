@@ -67,7 +67,7 @@ docker compose up --build
 | Переменная        | Описание                              | По умолчанию |
 |-------------------|---------------------------------------|--------------|
 | DATABASE_URL      | Строка подключения к PostgreSQL       | см. .env.example |
-| HF_MODEL          | Название модели Hugging Face          | mrm8488/bert-tiny-finetuned-sms-spam-detection |
+| HF_MODEL          | Название модели Hugging Face          | RUSpam/spamNS_v1 |
 | MAX_TEXT_LENGTH   | Максимальная длина текста (символов)  | 500 |
 | POSTGRES_USER     | Пользователь PostgreSQL               | spam_user |
 | POSTGRES_PASSWORD | Пароль PostgreSQL                     | spam_pass |
@@ -103,8 +103,6 @@ curl -X POST http://localhost:8000/analyze \
 {"result": "SPAM", "score": 0.98}
 ```
 
-> Примечание: используемая по умолчанию модель обучена на английских SMS, поэтому для стабильной работы лучше отправлять текст на английском. Пример выше показан в русском варианте для наглядности.
-
 ### GET /history
 
 Последние 20 запросов (можно настроить через пагинацию).
@@ -136,7 +134,7 @@ curl http://localhost:8000/history/1
 
 ## Hugging Face модель
 
-По умолчанию используется небольшая модель `mrm8488/bert-tiny-finetuned-sms-spam-detection`, которую можно заменить через переменную окружения `HF_MODEL`.
+По умолчанию используется небольшая русскоязычная модель `RUSpam/spamNS_v1` (~29M параметров, основана на rubert-tiny2). Подходит для CPU и работает без видеокарты. Заменить можно через переменную окружения `HF_MODEL`.
 
 ## Тестирование через Postman
 
