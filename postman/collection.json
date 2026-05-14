@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "AI Spam Detector",
+    "description": "Коллекция для тестирования API спам-детектора",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Analyze - спам пример",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Congratulations! You have won a free iPhone, click here to claim now!!!\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/analyze",
+          "host": ["{{base_url}}"],
+          "path": ["analyze"]
+        }
+      }
+    },
+    {
+      "name": "Analyze - обычное сообщение",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Hi, are we still meeting for lunch tomorrow?\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/analyze",
+          "host": ["{{base_url}}"],
+          "path": ["analyze"]
+        }
+      }
+    },
+    {
+      "name": "Analyze - пустой текст (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/analyze",
+          "host": ["{{base_url}}"],
+          "path": ["analyze"]
+        }
+      }
+    },
+    {
+      "name": "History - последние 20",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/history",
+          "host": ["{{base_url}}"],
+          "path": ["history"]
+        }
+      }
+    },
+    {
+      "name": "History - с пагинацией",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/history?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["history"],
+          "query": [
+            {"key": "page", "value": "1"},
+            {"key": "limit", "value": "10"}
+          ]
+        }
+      }
+    },
+    {
+      "name": "History by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/history/1",
+          "host": ["{{base_url}}"],
+          "path": ["history", "1"]
+        }
+      }
+    },
+    {
+      "name": "History by id - несуществующий (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/history/999999",
+          "host": ["{{base_url}}"],
+          "path": ["history", "999999"]
+        }
+      }
+    }
+  ]
+}
