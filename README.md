@@ -95,13 +95,15 @@ curl http://localhost:8000/health
 ```bash
 curl -X POST http://localhost:8000/analyze \
   -H "Content-Type: application/json" \
-  -d '{"text": "WIN a free iPhone now! Click the link!"}'
+  -d '{"text": "Поздравляем! Вы выиграли айфон, переходите по ссылке прямо сейчас!"}'
 ```
 
 Ответ:
 ```json
 {"result": "SPAM", "score": 0.98}
 ```
+
+> Примечание: используемая по умолчанию модель обучена на английских SMS, поэтому для стабильной работы лучше отправлять текст на английском. Пример выше показан в русском варианте для наглядности.
 
 ### GET /history
 
